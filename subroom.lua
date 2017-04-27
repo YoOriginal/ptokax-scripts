@@ -48,6 +48,14 @@ function OnStartup()
 			sLogFile = "nsfw.txt",
 			sSubscribersFile = tConfig.sPath.."texts/".."nsfwSub.txt",
 		},
+		["#[Random]"] = {
+			tSubscribers = { tModerators = {} },
+			tChatHistory = {},
+			sBotDescription = "Chatroom for Everything else.",
+			sBotEmail = "do.not@mail.me",
+			sLogFile = "random.txt",
+			sSubscribersFile = tConfig.sPath.."texts/".."randomSub.txt",
+},
 	}
 	dofile( tConfig.sPath..tConfig.sDepPath..tConfig.sPickleFile )
 	for sBotName, tInfo in pairs( tRooms ) do
