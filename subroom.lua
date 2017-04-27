@@ -48,6 +48,14 @@ function OnStartup()
 			sLogFile = "nsfw.txt",
 			sSubscribersFile = tConfig.sPath.."texts/".."nsfwSub.txt",
 		},
+		["#[Random]"] = {
+			tSubscribers = { tModerators = {} },
+			tChatHistory = {},
+			sBotDescription = "Chatroom for Everything else.",
+			sBotEmail = "do.not@mail.me",
+			sLogFile = "random.txt",
+			sSubscribersFile = tConfig.sPath.."texts/".."randomSub.txt",
+		},
 	}
 	dofile( tConfig.sPath..tConfig.sDepPath..tConfig.sPickleFile )
 	for sBotName, tInfo in pairs( tRooms ) do
@@ -191,6 +199,9 @@ end
 function SendToSubscribers( sSelfNick, sRoomName, sIncoming, bNotice )
 	local tCurrentHistory, sIncoming, sRawString = tRooms[sRoomName].tChatHistory, sIncoming:match "%b$$(.*)|", "$To: %s From: %s $%s|"
 	if sRoomName == "#[NSFW]" and not bNotice then
+		sIncoming = "<Anonymous>"..sIncoming:match "%b<>(.*)"
+	end
+	if sRoomName == "#[Random]" and not bNotice then
 		sIncoming = "<Anonymous>"..sIncoming:match "%b<>(.*)"
 	end
 	for iIndex, sNick in ipairs( tRooms[sRoomName].tSubscribers ) do
